@@ -1,0 +1,2 @@
+# sqauredraw
+competitor for hexdra
