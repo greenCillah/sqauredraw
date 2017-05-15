@@ -43,13 +43,10 @@ function zoom() {
 
 
 function fnStart() {
-    console.log(1);
 
     gridData = gridData();
-    // I like to log the data to the console for quick debugging
-    console.log(gridData);
 
-    grid = d3.select("#grid")
+    grid = d3.select("body")
         .append("svg")
         .attr("width", widthpx)
         .attr("height", heightpx)
