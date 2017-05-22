@@ -1,2 +1,10 @@
 # sqauredraw
-competitor for hexdra
+competitor for hexdraw
+
+
+npm install
+node server.js
+
+
+
+http://localhost:3003/index.html

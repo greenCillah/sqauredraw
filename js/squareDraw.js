@@ -38,69 +38,6 @@ function gridData() {
     return data;
 }
 
-function zoom() {
-    grid.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
-}
-
-
-function zoomed() {
-    grid.attr("transform",
-        "translate(" + d3.behavior.zoom().translate() + ")" +
-        "scale(" + d3.behavior.zoom().scale() + ")"
-    );
-}
-
-function interpolateZoom(translate, scale) {
-    var self = this;
-    return d3.transition().duration(350).tween("zoom", function () {
-        var iTranslate = d3.interpolate(d3.behavior.zoom().translate(), translate),
-            iScale = d3.interpolate(d3.behavior.zoom().scale(), scale);
-        return function (t) {
-            d3.behavior.zoom()
-                .scale(iScale(t))
-                .translate(iTranslate(t));
-            zoomed();
-        };
-    });
-}
-
-
-function zoomClick() {
-    var clicked = d3.event.target,
-        direction = 1,
-        factor = 0.2,
-        target_zoom = 1,
-        center = [width / 2, height / 2],
-        extent = d3.behavior.zoom().scaleExtent(),
-        translate = d3.behavior.zoom().translate(),
-        translate0 = [],
-        l = [],
-        view = {
-            x: translate[0],
-            y: translate[1],
-            k: d3.behavior.zoom().scale()
-        };
-
-    d3.event.preventDefault();
-    direction = (this.id === 'zoom_in') ? 1 : -1;
-    target_zoom = d3.behavior.zoom().scale() * (1 + factor * direction);
-
-    if (target_zoom < extent[0] || target_zoom > extent[1]) {
-        return false;
-    }
-
-    translate0 = [(center[0] - view.x) / view.k, (center[1] - view.y) / view.k];
-    view.k = target_zoom;
-    l = [translate0[0] * view.k + view.x, translate0[1] * view.k + view.y];
-
-    view.x += center[0] - l[0];
-    view.y += center[1] - l[1];
-
-    interpolateZoom([view.x, view.y], view.k);
-}
-
-
-
 function fnStart() {
 
     gridData = gridData();
@@ -152,5 +89,4 @@ function fnStart() {
             }
         });
 
-    d3.selectAll('button').on('click', zoomClick);
 }
