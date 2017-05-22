@@ -38,6 +38,10 @@ function gridData() {
     return data;
 }
 
+function zoom() {
+    grid.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
+}
+
 function fnStart() {
 
     gridData = gridData();
